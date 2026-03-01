@@ -130,7 +130,7 @@ export default function FeedCard({ podcast, isActive }: Props) {
       />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col p-6 pb-24">
+      <div className="relative z-10 h-full flex flex-col p-6 pb-8">
         {/* Center area — brand avatar */}
         <div className="flex-1 flex items-center justify-center">
           <button

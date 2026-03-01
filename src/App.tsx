@@ -1,8 +1,6 @@
 import { useState, useCallback } from 'react'
 import Feed from './components/Feed'
 import CreatePage from './components/CreatePage'
-import BottomNav from './components/BottomNav'
-import type { View } from './components/BottomNav'
 import { mockPodcasts } from './data/mockPodcasts'
 import type { Podcast } from './data/mockPodcasts'
 
@@ -16,7 +14,7 @@ const GRADIENTS: [string, string][] = [
 ]
 
 function App() {
-  const [view, setView] = useState<View>('feed')
+  const [showCreate, setShowCreate] = useState(false)
   const [podcasts, setPodcasts] = useState<Podcast[]>(mockPodcasts)
 
   const handleCreateComplete = useCallback((result: { title: string; audioUrl: string; duration: number }) => {
@@ -32,31 +30,34 @@ function App() {
       audioUrl: result.audioUrl,
     }
 
-    // Add to the top of the feed
     setPodcasts((prev) => [newPodcast, ...prev])
-    setView('feed')
+    setShowCreate(false)
   }, [])
 
-  return (
-    <div className="h-dvh bg-black text-white flex flex-col overflow-hidden">
-      <div className="flex-1 overflow-hidden">
-        {view === 'feed' && <Feed podcasts={podcasts} />}
-        {view === 'create' && (
-          <CreatePage
-            onComplete={handleCreateComplete}
-            onBack={() => setView('feed')}
-          />
-        )}
-        {view === 'profile' && (
-          <div className="h-full flex items-center justify-center text-white/40 text-sm">
-            Profile — coming soon
-          </div>
-        )}
+  if (showCreate) {
+    return (
+      <div className="h-dvh bg-black text-white overflow-hidden">
+        <CreatePage
+          onComplete={handleCreateComplete}
+          onBack={() => setShowCreate(false)}
+        />
       </div>
+    )
+  }
 
-      {view !== 'create' && (
-        <BottomNav current={view} onNavigate={setView} />
-      )}
+  return (
+    <div className="h-dvh bg-black text-white overflow-hidden relative">
+      <Feed podcasts={podcasts} />
+
+      {/* Floating create button */}
+      <button
+        onClick={() => setShowCreate(true)}
+        className="fixed bottom-8 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/30 active:scale-90 transition-transform"
+      >
+        <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </button>
     </div>
   )
 }
