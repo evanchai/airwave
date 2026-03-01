@@ -5,102 +5,151 @@ interface PodcastData {
   title: string;
   topic: string;
   host: string;
-  duration: string;
+  durationSec: number;
   plays: string;
   likes: number;
   color: string;
   accent: string;
   gradient: string;
   waveColor: string;
-  coverEmoji: string;
+  iconUrl: string;
   description: string;
   chapters: string[];
-  progress: number;
   aiSource: string;
+  audioUrl: string;
 }
 
 const PODCASTS: PodcastData[] = [
   {
     id: 1,
-    title: "Why Sleep Is Your Superpower",
-    topic: "Neuroscience",
-    host: "Luna & Atlas",
-    duration: "12 min",
-    plays: "284K",
-    likes: 18200,
-    color: "#1a1a2e",
-    accent: "#e94560",
-    gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-    waveColor: "#e94560",
-    coverEmoji: "🧠",
+    title: "Meta Integrates Manus AI into Ads Manager",
+    topic: "AI Agents",
+    host: "Kore & Puck",
+    durationSec: 73,
+    plays: "1.3K",
+    likes: 1283,
+    color: "#1a0a2e",
+    accent: "#7c3aed",
+    gradient: "linear-gradient(135deg, #1a0a2e 0%, #2d1040 50%, #3b1260 100%)",
+    waveColor: "#db2777",
+    iconUrl: "/icons/meta.svg",
     description:
-      "Deep dive into how sleep architecture shapes memory, creativity, and emotional resilience. Generated from 12 research papers.",
-    chapters: ["Intro", "REM Science", "Memory Consolidation", "Practical Tips"],
-    progress: 0.35,
-    aiSource: "12 research papers",
+      "Meta embeds autonomous agent Manus AI into Ads Manager, enabling multistep tasks like market research and campaign analysis.",
+    chapters: ["Breaking News", "Manus AI Deep Dive", "Impact on Advertisers", "What's Next"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-1.wav",
   },
   {
     id: 2,
-    title: "The Economics of Attention",
-    topic: "Business",
-    host: "Mira & Sage",
-    duration: "18 min",
-    plays: "156K",
-    likes: 9400,
+    title: "Anthropic Launches Enterprise Plugins for Claude",
+    topic: "Enterprise AI",
+    host: "Kore & Puck",
+    durationSec: 73,
+    plays: "856",
+    likes: 856,
     color: "#0d1b2a",
-    accent: "#00f5d4",
-    gradient: "linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #1a3a4a 100%)",
-    waveColor: "#00f5d4",
-    coverEmoji: "💡",
+    accent: "#06b6d4",
+    gradient: "linear-gradient(135deg, #0d1b2a 0%, #0f2840 50%, #102a4a 100%)",
+    waveColor: "#2563eb",
+    iconUrl: "/icons/anthropic.svg",
     description:
-      "How tech giants weaponize dopamine loops and what it means for the creator economy.",
-    chapters: ["The Hook Model", "Creator Burnout", "Attention Markets", "Reclaiming Focus"],
-    progress: 0,
-    aiSource: "3 books + 5 articles",
+      "Anthropic introduces customizable plugins letting Claude operate autonomously within Excel, PowerPoint, and Google Drive.",
+    chapters: ["Plugin Architecture", "Office Integration", "Security Model", "Market Impact"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-2.wav",
   },
   {
     id: 3,
-    title: "Stoicism for the Anxious Mind",
-    topic: "Philosophy",
-    host: "Echo & Orion",
-    duration: "15 min",
-    plays: "412K",
-    likes: 31000,
-    color: "#1a0a2e",
-    accent: "#bc96e6",
-    gradient: "linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a3e 100%)",
-    waveColor: "#bc96e6",
-    coverEmoji: "🏛️",
+    title: "Google Reclaims Frontier Lead with Gemini 3.1",
+    topic: "Frontier Models",
+    host: "Kore & Puck",
+    durationSec: 89,
+    plays: "2.1K",
+    likes: 2104,
+    color: "#0a1e0a",
+    accent: "#059669",
+    gradient: "linear-gradient(135deg, #0a1e0a 0%, #0f2e16 50%, #153520 100%)",
+    waveColor: "#84cc16",
+    iconUrl: "/icons/google.svg",
     description:
-      "Marcus Aurelius meets modern CBT. An AI-crafted conversation about ancient wisdom for today's anxiety.",
-    chapters: ["Dichotomy of Control", "Negative Visualization", "Morning Ritual", "Amor Fati"],
-    progress: 0.72,
-    aiSource: "Meditations + 4 papers",
+      "Google regains the frontier model lead with Gemini 3.1 Pro, hitting 77.1% on ARC-AGI-2 benchmark.",
+    chapters: ["Benchmark Results", "Architecture Changes", "Competition Analysis", "Industry Impact"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-3.wav",
   },
   {
     id: 4,
-    title: "Cooking with Chemistry",
-    topic: "Food Science",
-    host: "Nova & Finn",
-    duration: "10 min",
-    plays: "89K",
-    likes: 7100,
-    color: "#1b1a17",
-    accent: "#f0a500",
-    gradient: "linear-gradient(135deg, #1b1a17 0%, #2d2a1e 50%, #3d3420 100%)",
-    waveColor: "#f0a500",
-    coverEmoji: "🧪",
+    title: "Perplexity Launches AI Digital Employee",
+    topic: "AI Automation",
+    host: "Kore & Puck",
+    durationSec: 83,
+    plays: "967",
+    likes: 967,
+    color: "#1b1208",
+    accent: "#ea580c",
+    gradient: "linear-gradient(135deg, #1b1208 0%, #2d1e0e 50%, #3d2810 100%)",
+    waveColor: "#facc15",
+    iconUrl: "/icons/perplexity.svg",
     description:
-      "Why does caramelization happen at 338°F? The Maillard reaction explained through dinner conversations.",
-    chapters: ["Maillard Magic", "Emulsions", "Fermentation", "Plating Science"],
-    progress: 0,
-    aiSource: "On Food and Cooking + 2 lectures",
+      "Perplexity Computer coordinates 19 AI models to execute complex workflows as a \"digital employee\" system.",
+    chapters: ["System Overview", "Multi-Model Coordination", "Use Cases", "Future Outlook"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-4.wav",
+  },
+  {
+    id: 5,
+    title: "Airbnb Quietly Deploys AI Customer Support",
+    topic: "Customer AI",
+    host: "Kore & Puck",
+    durationSec: 71,
+    plays: "1.5K",
+    likes: 1547,
+    color: "#0d1a2e",
+    accent: "#06b6d4",
+    gradient: "linear-gradient(135deg, #0d1a2e 0%, #1a2540 50%, #1e3050 100%)",
+    waveColor: "#7c3aed",
+    iconUrl: "/icons/airbnb.svg",
+    description:
+      "Airbnb rolls out an AI assistant resolving a third of all customer issues before a human gets involved.",
+    chapters: ["Rollout Strategy", "Resolution Rates", "Customer Feedback", "Scaling Plans"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-5.wav",
+  },
+  {
+    id: 6,
+    title: "Microsoft Previews Copilot Tasks Agent",
+    topic: "Productivity AI",
+    host: "Kore & Puck",
+    durationSec: 76,
+    plays: "3.2K",
+    likes: 3201,
+    color: "#1a0a20",
+    accent: "#9333ea",
+    gradient: "linear-gradient(135deg, #1a0a20 0%, #2a1040 50%, #351455 100%)",
+    waveColor: "#db2777",
+    iconUrl: "/icons/microsoft.svg",
+    description:
+      "Microsoft unveils Copilot Tasks, a cloud-hosted AI system completing recurring assignments autonomously.",
+    chapters: ["Task Agent Overview", "Cloud Architecture", "Enterprise Features", "Roadmap"],
+    aiSource: "AI news briefing",
+    audioUrl: "/audio/podcast-6.wav",
   },
 ];
 
 const formatNumber = (n: number): string => {
   if (n >= 1000) return (n / 1000).toFixed(1) + "K";
   return String(n);
+};
+
+const formatTime = (sec: number): string => {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+};
+
+const formatDuration = (sec: number): string => {
+  const m = Math.ceil(sec / 60);
+  return `${m} min`;
 };
 
 /* ── Animated Waveform ── */
@@ -137,21 +186,47 @@ export default function App() {
   const [showChapters, setShowChapters] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [direction, setDirection] = useState(0);
-  const [simProgress, setSimProgress] = useState(PODCASTS.map((p) => p.progress));
+  const [currentTime, setCurrentTime] = useState(0);
   const touchStart = useRef<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const current = PODCASTS[currentIndex];
 
+  // Sync audio playback state
   useEffect(() => {
-    if (!playing) return;
-    const iv = setInterval(() => {
-      setSimProgress((prev) => {
-        const next = [...prev];
-        next[currentIndex] = Math.min(1, (next[currentIndex] || 0) + 0.002);
-        return next;
-      });
-    }, 200);
-    return () => clearInterval(iv);
-  }, [playing, currentIndex]);
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.src = current.audioUrl;
+    audio.currentTime = 0;
+    setCurrentTime(0);
+    if (playing) {
+      audio.play().catch(() => setPlaying(false));
+    }
+  }, [currentIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      audio.play().catch(() => setPlaying(false));
+    } else {
+      audio.pause();
+    }
+  }, [playing]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onTime = () => setCurrentTime(audio.currentTime);
+    const onEnded = () => setPlaying(false);
+    audio.addEventListener("timeupdate", onTime);
+    audio.addEventListener("ended", onEnded);
+    return () => {
+      audio.removeEventListener("timeupdate", onTime);
+      audio.removeEventListener("ended", onEnded);
+    };
+  }, []);
+
+  const prog = current.durationSec > 0 ? currentTime / current.durationSec : 0;
 
   const goTo = useCallback(
     (dir: number) => {
@@ -182,7 +257,14 @@ export default function App() {
     if (Math.abs(e.deltaY) > 30) goTo(e.deltaY > 0 ? 1 : -1);
   };
 
-  const prog = simProgress[currentIndex] || 0;
+  const seekTo = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    audio.currentTime = ratio * current.durationSec;
+    setCurrentTime(audio.currentTime);
+  };
 
   return (
     <div
@@ -204,6 +286,9 @@ export default function App() {
       onTouchEnd={handleTouchEnd}
       onWheel={handleWheel}
     >
+      {/* Hidden audio element */}
+      <audio ref={audioRef} preload="auto" />
+
       {/* ── Background ── */}
       <div
         style={{
@@ -264,7 +349,7 @@ export default function App() {
             }}
           />
           <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 11, fontWeight: 500, letterSpacing: 1.5, textTransform: "uppercase" }}>
-            AI Podcast
+            Airwave
           </span>
         </div>
         <button
@@ -386,18 +471,20 @@ export default function App() {
               />
             ))}
           </div>
-          {/* Center emoji */}
-          <span
+          {/* Company icon */}
+          <img
+            src={current.iconUrl}
+            alt=""
             style={{
-              fontSize: 64,
-              filter: "drop-shadow(0 10px 40px rgba(0,0,0,0.3))",
+              width: 72,
+              height: 72,
+              filter: "drop-shadow(0 10px 40px rgba(0,0,0,0.3)) brightness(0) invert(1)",
+              opacity: 0.9,
               animation: playing ? "breathe 3s ease infinite" : "none",
               position: "relative",
               zIndex: 2,
             }}
-          >
-            {current.coverEmoji}
-          </span>
+          />
           {/* Source badge */}
           <div
             style={{
@@ -436,7 +523,7 @@ export default function App() {
               fontWeight: 600,
             }}
           >
-            {current.duration}
+            {formatDuration(current.durationSec)}
           </div>
           {/* Scroll dots */}
           <div
@@ -510,19 +597,22 @@ export default function App() {
           <Waveform color={current.waveColor} playing={playing} />
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8 }}>
             <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 11, fontVariantNumeric: "tabular-nums" }}>
-              {Math.floor(prog * parseInt(current.duration))}:{String(Math.floor((prog * parseInt(current.duration) * 60) % 60)).padStart(2, "0")}
+              {formatTime(currentTime)}
             </span>
-            <div style={{ flex: 1, height: 3, margin: "0 12px", borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
+            <div
+              onClick={seekTo}
+              style={{ flex: 1, height: 3, margin: "0 12px", borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden", cursor: "pointer" }}
+            >
               <div style={{ height: "100%", width: `${prog * 100}%`, borderRadius: 2, background: current.accent, transition: "width 0.3s ease" }} />
             </div>
-            <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 11 }}>{current.duration}</span>
+            <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 11 }}>{formatTime(current.durationSec)}</span>
           </div>
         </div>
 
         {/* Playback Controls */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, margin: "12px 0" }}>
           {/* Rewind */}
-          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
+          <button onClick={() => { if (audioRef.current) audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10); }} style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2">
               <polygon points="11 19 2 12 11 5 11 19" />
               <polygon points="22 19 13 12 22 5 22 19" />
@@ -557,7 +647,7 @@ export default function App() {
             )}
           </button>
           {/* Forward */}
-          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
+          <button onClick={() => { if (audioRef.current) audioRef.current.currentTime = Math.min(current.durationSec, audioRef.current.currentTime + 10); }} style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2">
               <polygon points="13 19 22 12 13 5 13 19" />
               <polygon points="2 19 11 12 2 5 2 19" />
