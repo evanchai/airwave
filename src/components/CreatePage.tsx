@@ -1,24 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { GoogleGenAI } from '@google/genai'
 
-type Step = 'input' | 'generating-script' | 'generating-audio' | 'done' | 'error'
-
-const SCRIPT_PROMPT = `You are a podcast script writer. Convert the following text into a short, engaging two-person podcast dialogue.
-
-The hosts are:
-- "Host": The main presenter who introduces topics
-- "Guest": An insightful commentator
-
-Rules:
-- Conversational and natural
-- Keep each line SHORT (1-2 sentences max)
-- Total: 8-12 exchanges ONLY (keep it brief!)
-- Start with a quick intro, end with a brief wrap-up
-- Output ONLY a valid JSON array: [{"speaker":"Host","text":"..."},{"speaker":"Guest","text":"..."}]
-- Speaker must be exactly "Host" or "Guest"
-
-Text to convert:
-`
+type Step = 'input' | 'generating' | 'done' | 'error'
 
 function pcmToWav(pcmData: Uint8Array): Blob {
   const sampleRate = 24000
@@ -74,7 +56,7 @@ export default function CreatePage({ onComplete, onBack }: Props) {
   const [elapsed, setElapsed] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval>>(null)
 
-  const isGenerating = step === 'generating-script' || step === 'generating-audio'
+  const isGenerating = step === 'generating'
 
   // Elapsed time counter
   useEffect(() => {
@@ -90,79 +72,26 @@ export default function CreatePage({ onComplete, onBack }: Props) {
   const handleGenerate = useCallback(async () => {
     if (!text.trim()) return
 
-    setStep('generating-script')
+    setStep('generating')
     setErrorMsg('')
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY
-      if (!apiKey) throw new Error('VITE_GEMINI_API_KEY not set')
-
-      const ai = new GoogleGenAI({ apiKey })
-
-      // Step 1: Generate dialogue script
-      const scriptResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: [{ parts: [{ text: SCRIPT_PROMPT + text.slice(0, 30000) }] }],
-        config: {
-          responseMimeType: 'application/json',
-          maxOutputTokens: 4096,
-        },
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text.slice(0, 30000) }),
       })
 
-      const scriptText = scriptResponse.text || '[]'
-      const dialogue: { speaker: string; text: string }[] = JSON.parse(scriptText)
-      if (!Array.isArray(dialogue) || dialogue.length === 0) {
-        throw new Error('Failed to generate dialogue script')
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Generation failed' }))
+        throw new Error(err.error || `Server error ${res.status}`)
       }
 
-      console.log(`Generated ${dialogue.length} dialogue lines`)
+      // Response is raw PCM audio
+      const pcmBuffer = await res.arrayBuffer()
+      const pcmData = new Uint8Array(pcmBuffer)
 
-      // Step 2: Generate TTS audio
-      setStep('generating-audio')
-      const ttsScript = dialogue
-        .map((line) => `${line.speaker}: ${line.text}`)
-        .join('\n')
-
-      const ttsResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-preview-tts',
-        contents: [{ parts: [{ text: `TTS the following conversation between Host and Guest:\n${ttsScript}` }] }],
-        config: {
-          responseModalities: ['AUDIO'],
-          speechConfig: {
-            multiSpeakerVoiceConfig: {
-              speakerVoiceConfigs: [
-                {
-                  speaker: 'Host',
-                  voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } },
-                },
-                {
-                  speaker: 'Guest',
-                  voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Puck' } },
-                },
-              ],
-            },
-          },
-        },
-      })
-
-      // Extract audio
-      const candidate = ttsResponse.candidates?.[0]
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const parts = candidate?.content?.parts as any[] | undefined
-      const audioPart = parts?.find((p) => p.inlineData?.mimeType?.startsWith('audio/'))
-
-      if (!audioPart?.inlineData?.data) {
-        throw new Error('TTS generation failed - no audio data returned')
-      }
-
-      // Decode base64 PCM to WAV
-      const binaryStr = atob(audioPart.inlineData.data)
-      const bytes = new Uint8Array(binaryStr.length)
-      for (let i = 0; i < binaryStr.length; i++) {
-        bytes[i] = binaryStr.charCodeAt(i)
-      }
-
-      const wavBlob = pcmToWav(bytes)
+      const wavBlob = pcmToWav(pcmData)
       const audioUrl = URL.createObjectURL(wavBlob)
 
       // Get duration
@@ -214,22 +143,11 @@ export default function CreatePage({ onComplete, onBack }: Props) {
           </div>
 
           <div className="text-center">
-            <p className="text-lg font-medium mb-2">
-              {step === 'generating-script' ? 'Writing the script...' : 'Creating AI voices...'}
-            </p>
+            <p className="text-lg font-medium mb-2">Generating your podcast...</p>
             <p className="text-sm text-white/40">
-              {step === 'generating-script'
-                ? 'AI is crafting a dialogue between two hosts'
-                : 'Generating natural-sounding speech (~30s)'}
+              AI is writing the script and creating voices (~60s)
             </p>
             <p className="text-xs text-white/20 mt-3 tabular-nums">{elapsed}s</p>
-          </div>
-
-          {/* Step indicator */}
-          <div className="flex items-center gap-3">
-            <div className={`w-2 h-2 rounded-full ${step === 'generating-script' ? 'bg-violet-500 animate-pulse' : 'bg-violet-500'}`} />
-            <div className="w-8 h-px bg-white/20" />
-            <div className={`w-2 h-2 rounded-full ${step === 'generating-audio' ? 'bg-fuchsia-500 animate-pulse' : 'bg-white/20'}`} />
           </div>
         </div>
       )}
