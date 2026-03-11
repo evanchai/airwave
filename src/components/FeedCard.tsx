@@ -104,7 +104,7 @@ export default function FeedCard({ podcast, isActive }: Props) {
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(135deg, ${podcast.gradient[0]}33 0%, ${podcast.gradient[1]}33 50%, #000 100%)`,
+          background: `linear-gradient(180deg, ${podcast.gradient[0]}80 0%, ${podcast.gradient[1]}40 35%, #000 100%)`,
         }}
       />
 
@@ -130,7 +130,7 @@ export default function FeedCard({ podcast, isActive }: Props) {
       />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col p-6 pb-8">
+      <div className="relative z-10 h-full flex flex-col p-6 pb-8 pt-safe-top">
         {/* Center area — brand avatar */}
         <div className="flex-1 flex items-center justify-center">
           <button

@@ -34,7 +34,7 @@ export default function Feed({ podcasts }: Props) {
   return (
     <div
       ref={containerRef}
-      className="h-full snap-y snap-mandatory overflow-y-scroll no-scrollbar"
+      className="h-full snap-y snap-mandatory overflow-y-scroll no-scrollbar overscroll-none"
     >
       {podcasts.map((podcast, index) => (
         <div
