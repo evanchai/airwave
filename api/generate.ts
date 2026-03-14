@@ -36,6 +36,14 @@ export default async function handler(req: Request) {
     });
   }
 
+  const origin = req.headers.get('origin') || req.headers.get('referer') || '';
+  if (!origin.includes('airwave.ning.codes') && !origin.includes('localhost')) {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'GEMINI_API_KEY not configured' }), {
